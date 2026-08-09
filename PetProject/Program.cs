@@ -271,7 +271,56 @@ do
 
     case "3":
       // Ensure animal ages and physical descriptions are complete
-      Console.WriteLine("Challenge Project - please check back soon to see progress.");
+      int validPhysicalDescriptionLength = 10;
+      for (int i = 0; i < maxPets; i++)
+      {
+        string currentAnimalId = ourAnimals[i, 0];
+        if (currentAnimalId != "ID #: ")
+        {
+          
+          if (ourAnimals[i, 2] == "Age: ?")
+          {
+            validEntry = false;
+            do
+            {
+              int petAge;
+              Console.WriteLine($"Enter an age for {currentAnimalId}");
+              readResult = Console.ReadLine();
+
+              if (readResult != null)
+              {
+                animalAge = readResult;
+
+                validEntry = int.TryParse(animalAge, out petAge);
+              }
+            } while (validEntry == false);
+
+            if (ourAnimals[i, 4] == "Physical description: ")
+            {
+              do
+              {
+                Console.WriteLine($"Enter a physical description for {currentAnimalId} (size, color, breed, gender, weight, housebroken)");
+                readResult = Console.ReadLine();
+
+                if (readResult != null)
+                {
+                  animalPhysicalDescription = readResult.ToLower();
+                }
+
+                if (animalPhysicalDescription.Length < validPhysicalDescriptionLength)
+                {
+                  Console.WriteLine($"Valid physical description should include at least {validPhysicalDescriptionLength} characters.");
+                }
+              } while (animalPhysicalDescription == "" || animalPhysicalDescription.Length < 10);
+            }
+          }
+
+          ourAnimals[i, 2] = "Age: " + animalAge;
+          ourAnimals[i, 4] = "Physical description: " + animalPhysicalDescription;
+        }
+      }
+
+      Console.WriteLine("Age and physical description fields are complete for all of our friends.");
       Console.WriteLine("Press the Enter key to continue.");
       readResult = Console.ReadLine();
       break;
