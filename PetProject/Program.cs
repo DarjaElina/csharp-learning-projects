@@ -421,38 +421,82 @@ do
     case "8":
       // Display all dogs with a specified characteristic
       string dogCharacteristic = "";
+      bool validSearch = false;
 
-      while (dogCharacteristic == "")
+      while (dogCharacteristic == "" || validSearch == false)
       {
-        Console.WriteLine($"\nEnter one desired dog characteristics to search for");
+        Console.WriteLine($"\nEnter dog characteristics to search for separated by commas");
         readResult = Console.ReadLine();
+
         if (readResult != null)
         {
+          validSearch = true;
           dogCharacteristic = readResult.ToLower().Trim();
-        }
-      }
-      bool noMatchesDog = true;
-      for (int i = 0; i < maxPets; i++)
-      {
-        string dogDescription = "";
-        
-        if (ourAnimals[i, 1].Contains("dog"))
-        {
-          dogDescription = ourAnimals[i, 4] + "\n" + ourAnimals[i, 5];
-          if (dogDescription.Contains(dogCharacteristic))
+          string[] searchTerms = dogCharacteristic.Split(", ");
+
+          foreach (string searchTerm in searchTerms)
           {
-            noMatchesDog = false;
-            Console.WriteLine($"\nOur dog {ourAnimals[i, 3]} is a match!");
-            Console.WriteLine(dogDescription);
+            if (String.IsNullOrWhiteSpace(searchTerm.Trim()))
+            {
+              validSearch = false;
+            }
           }
         }
       }
-       if (noMatchesDog)
+      Console.WriteLine();
+
+      string[] validSearchTerms = dogCharacteristic.Split(", ");
+      Array.Sort(validSearchTerms);
+
+      bool noMatchesDog = true;
+      string dogDescription = "";
+      string[] searchingIcons = { "/ ", "--", "\\ ", "* " };
+      string nicknamePrefix = "Nickname: ";
+      int nickNamePrefixLength = nicknamePrefix.Length;
+
+      for (int i = 0; i < maxPets; i++)
+      {
+        if (ourAnimals[i, 1].Contains("dog"))
         {
-          Console.WriteLine("None of our dogs are a match found for: " + dogCharacteristic);
+          dogDescription = ourAnimals[i, 4] + "\n" + ourAnimals[i, 5];
+
+          string[] descriptionTokens = dogDescription.Split(' ');
+
+          foreach (string searchTerm in validSearchTerms)
+          {
+            for (int j = 2; j >= 0; j--)
+            {
+              foreach (string icon in searchingIcons)
+              {
+                Console.Write($"\rsearching our dog {ourAnimals[i, 3].Substring(nickNamePrefixLength)} for '{searchTerm}' {icon} {j}");
+                Thread.Sleep(280);
+              }              
+            }
+            Console.Write($"\r{new String(' ', Console.BufferWidth)}");
+            if (descriptionTokens.Contains(searchTerm))
+            {
+              noMatchesDog = false;
+              Console.WriteLine($"\rOur dog {ourAnimals[i, 3].Substring(nickNamePrefixLength)} is a '{searchTerm}' match!");
+            }
+          }
+          if (noMatchesDog == false)
+          {
+            Console.WriteLine($"{ourAnimals[i, 3]} ({ourAnimals[i, 0]})");
+            Console.WriteLine($"{ourAnimals[i, 4]}");
+            Console.WriteLine($"{ourAnimals[i, 5]}");
+            Console.WriteLine();
+          }
         }
+      }
+
+      if (noMatchesDog)
+      {
+        Console.WriteLine("None of our dogs are a match found for: " + dogCharacteristic);
+      }
+
       Console.WriteLine("Press the Enter key to continue.");
       readResult = Console.ReadLine();
+
       break;
 
     default:
