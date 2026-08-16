@@ -1,6 +1,10 @@
 # Learning C#
 
+# Learning C#
+
 A collection of small learning projects and console applications created while completing the [Foundational C# with Microsoft Certification](https://www.freecodecamp.org/learn/foundational-c-sharp-with-microsoft/) course by [Microsoft Learn](https://learn.microsoft.com/en-us/) and [freeCodeCamp](https://www.freecodecamp.org/).
+
+Some projects were built from scratch as small exercises, while the more advanced guided projects and challenges were provided with starter/template code and task requirements. My work focused on implementing the required functionality, modifying existing code, debugging, and applying the C# concepts introduced throughout the course.
 
 ## Projects
 
