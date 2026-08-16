@@ -51,3 +51,11 @@ A console application that randomly assigns animals from a petting zoo to groups
 A small console game where the player moves around the screen and consumes randomly generated food that changes the player's state.
 
 **Concepts**: arrays, methods, loops, conditionals, `switch`, optional parameters, random numbers, console input/output, cursor positioning.
+
+### 9. Cash Register
+
+A console application that simulates a store checkout system with a cash register and till. The application processes customer payments, calculates change, validates transactions, and handles failed operations without leaving the till in an inconsistent state.
+
+The project includes exception handling and debugging exercises, including validation of insufficient payments and cases where the till cannot provide the required change.
+
+**Concepts**: methods, arrays, multidimensional arrays, loops, conditional logic, exception handling, `try`/`catch`, `throw`, `InvalidOperationException`, debugging, state management, validation, and atomic operations.
